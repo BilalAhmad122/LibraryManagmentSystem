@@ -1,0 +1,84 @@
+﻿@model IEnumerable<Data_Base_Layer.IssueBookTable>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ReservedNoOfCopies)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BookTable.BookTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EmployeeTable.FullName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BookID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IssueCopies)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IssueDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.UserTable.UserName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+
+    <td>
+        @Html.DisplayFor(modelItem => item.BookTable.BookTitle)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.EmployeeTable.FullName)
+    </td>
+
+    <td>
+        @Html.DisplayFor(modelItem => item.IssueCopies)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.IssueDate)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Status)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.ReservedNoOfCopies)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.ReturnDate)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Description)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.UserTable.UserName)
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.IssueBookID }) |
+        @Html.ActionLink("Details", "Details", new { id = item.IssueBookID }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.IssueBookID })
+    </td>
+</tr>
+}
+
+</table>

@@ -1,0 +1,128 @@
+﻿@model IEnumerable<Data_Base_Layer.PurTemDetailTable>
+@{
+    ViewBag.Title = "New Purchase";
+}
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+@using (Html.BeginForm("AddItem", "Purchase", FormMethod.Post, null))
+
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            <label class="control-label col-nd-2">Select Book</label>
+            <div class="col-nd-6">
+                <select class="form-control" id="BID" name="BID" required></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-nd-2">Quantity</label>
+            <div class="col-nd-6">
+                <input type="number" class="form-control" id="QTY" placeholder="Enter Purchase Quantity---" required />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-nd-2">Unit Price</label>
+            <div class="col-nd-6">
+                <input type="number" class="form-control" id="Price" placeholder="Enter Unit Price---" required />
+            </div>
+        </div><div class="form-group">
+            <div class="col-nd-6">
+                <input type="submit" value="Add Item" class="btn btn-success" />
+            </div>
+        </div>
+
+    </div>
+}
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Purchase Items List</h6>
+        <h3 class="danger">@ViewBag.Message</h3>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>
+                            Book
+                        </th>
+                        <th>
+                            Purchase Qty
+                        </th>
+                        <th>
+                            Unit Price
+                        </th>
+                        <th>
+                            Item Cost
+                        </th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.BookTable.BookName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Quty)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UnitPrice)
+                        </td>
+                        <td>
+
+                        @(string.Format("{0:0.000}", Math.Truncate(item.Quty * item.UnitPrice * 10) / 10))PKR
+                        </td>
+                        <td>
+                            @Html.ActionLink("Delete", "DeletConfirm", new { id = item.PurTempID }, new { @class = "btn btn-danger" })
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td style="background-color:black;color:white;">Total Purchase Amount</td>
+                        <td style="background-color:black;color:white;">
+                            @(string.Format("{0:0.000}", Math.Truncate(ViewBag.TotalAmount*10)/10))PKR
+                        </td>
+                        <td></td>
+                    </tr>
+                </tfoot>
+            </table>
+            <div style="margin-top:20px; float:right">
+                @Html.ActionLink("Next", "SelectSuplier", null, new { @class = "btn btn-success", Style = "padding:20px;" })
+                @Html.ActionLink("Next", "CancelPurchase", null, new { @class = "btn btn-danger", Style = "padding:20px;" })
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $.ajax({
+            url: '@Url.Action("GetBooks","Purchase")',
+            type: 'GET',
+            data: "{}",
+            success: function (response) {
+                for (var i = 0; i = response; i++) {
+                    $('#BID').append("<option value" + response.data[i].BookID + ">" + response.data[i].BookName + "</option>");
+                }
+            },
+            error: function () {
+
+            }
+        
+    });
+    });
+
+
+</script>
+

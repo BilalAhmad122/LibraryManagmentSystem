@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Data_Base_Layer.DesignationTable>
+@Html.ActionLink("New Designation", "Create", null, new { @class = "btn btn-success " })
+<hr />
+<div class="card shadow mb-4">
+   
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>
+                            Designation Title
+                        </th>
+                        <th>
+                            Scale
+                        </th>
+                        <th>
+                            User
+                        </th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Scale)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.UserTable.UserName)
+                            </td>
+                            <td class="btn-group">
+                                @Html.ActionLink("Edit", "Edit", new { id = item.DesignetionID },new { @class = "btn btn-primary" }) |
+                                @Html.ActionLink("Details", "Details", new { id = item.DesignetionID },new { @class ="btn btn-info" }) 
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

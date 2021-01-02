@@ -1,0 +1,88 @@
+﻿@model IEnumerable<Data_Base_Layer.IssueBookTable>
+
+@{
+    ViewBag.Title = "Return Pending Books";
+}
+
+<table class="table">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Reserve Books</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+
+                            <th>
+                                Book Title
+                            </th>
+                            <th>
+                                Full Name
+                            </th>
+
+                            <th>
+                                No of Copies
+                            </th>
+                            <th>
+                                IssueDate
+                            </th>
+                            <th>
+                                ReturnDate
+                            </th>
+                            <th>
+                                Status
+                            </th>
+                            <th>
+                                Description
+                            </th>
+                            <th>
+                                UserName
+                            </th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.BookTable.BookTitle)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.EmployeeTable.FullName)
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.IssueCopies)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.IssueDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ReturnDate)
+                                </td>
+                                <td class="">
+                                    <p class="txt-denger disabled" style="font:bold">Return Pending</p>
+
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Description)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.UserTable.UserName)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Return Book ", "ReturnBook", new { id = item.IssueBookID }, new { @class = "btn btn-primery" })
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    </table>
